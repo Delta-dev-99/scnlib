@@ -157,31 +157,40 @@ jobs:
       - name: Install dependencies
         working-directory: ${{ runner.workspace }}/deps
         run: |
-          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-          sudo apt-get --allow-unauthenticated -yq update
+          if [[ "${CXX}" == g++* ]]; then
+            sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+            sudo apt-get --allow-unauthenticated -yq update
+          fi
           
           ${APT_INSTALL} ccache
           
           if [[ "${CXX}" == "g++-13" ]]; then
             ${APT_INSTALL} g++-13
+            exit 0
           fi
           if [[ "${CXX}" == "g++-12" ]]; then
             ${APT_INSTALL} g++-12
+            exit 0
           fi
           if [[ "${CXX}" == "g++-11" ]]; then
             ${APT_INSTALL} g++-11
+            exit 0
           fi
           if [[ "${CXX}" == "g++-10" ]]; then
             ${APT_INSTALL} g++-10
+            exit 0
           fi
           if [[ "${CXX}" == "g++-9" ]]; then
             ${APT_INSTALL} g++-9
+            exit 0
           fi
           if [[ "${CXX}" == "g++-8" ]]; then
             ${APT_INSTALL} g++-8
+            exit 0
           fi
           if [[ "${CXX}" == "g++-7" ]]; then
             ${APT_INSTALL} g++-7
+            exit 0
           fi
           
           wget https://apt.llvm.org/llvm.sh
